@@ -1,7 +1,8 @@
 import pickle
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.metrics import mutual_info_score
+from sklearn.metrics import normalized_mutual_info_score
+from sklearn.metrics import adjusted_mutual_info_score
 
 INTERMEDIATE_PATH = "/Users/Mack/qtm-385-project/intermediate/"
 
@@ -36,11 +37,21 @@ plt.title("pUMAP Emb. Data vs Full Data K-Means")
 plt.show()
 
 print("Beginning UMAP Normal")
-umap_sum = mutual_info_score(umap_km_labels, fullData)
+umap_sum = normalized_mutual_info_score(umap_km_labels, fullData)
 pickle.dump(umap_sum, open(INTERMEDIATE_PATH + "umap_mutual.p", "wb"))
 print(umap_sum)
 
 print("Beginning UMAP Parametric")
-param_umap_sum = mutual_info_score(param_umap_km_labels, fullData)
+param_umap_sum = normalized_mutual_info_score(param_umap_km_labels, fullData)
+pickle.dump(param_umap_sum, open(INTERMEDIATE_PATH + "param_umap_mutual.p", "wb"))
+print(param_umap_sum)
+
+print("Beginning UMAP Normal")
+umap_sum = adjusted_mutual_info_score(umap_km_labels, fullData)
+pickle.dump(umap_sum, open(INTERMEDIATE_PATH + "umap_mutual.p", "wb"))
+print(umap_sum)
+
+print("Beginning UMAP Parametric")
+param_umap_sum = adjusted_mutual_info_score(param_umap_km_labels, fullData)
 pickle.dump(param_umap_sum, open(INTERMEDIATE_PATH + "param_umap_mutual.p", "wb"))
 print(param_umap_sum)
